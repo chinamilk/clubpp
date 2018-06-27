@@ -7,7 +7,7 @@
 ## 核心技术：
     flask-restful，mysql，supervisor，nagin, Ubuntu
 ## 前后端交互Api设计：
-    https://github.com/Rabbit-A512/clubpp
+    [点击这里](https://github.com/Rabbit-A512/clubpp).
 ## 项目结构组织：
     /app -- api         api请求映射
          -- dao         数据库交互
