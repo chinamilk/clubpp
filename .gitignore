@@ -1,0 +1,5 @@
+# 如果项目中有其他辅助文件（与项目无关），请添加自己的过滤pattern到.gitignore文件中
+
+/venv/
+/.idea/
+*.sh
