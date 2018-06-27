@@ -9,7 +9,8 @@
         flask restful 支持
         
     2. mariadb(version 15.1)
-        数据库
+        数据库账号:
+        用户: clubpp 密码: 123456sql
         
     3. supervisor
         进程管理工具
