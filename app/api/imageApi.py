@@ -1,3 +1,4 @@
+# -*-coding:utf-8-*-
 import werkzeug
 from flask_restful import Resource, reqparse
 
