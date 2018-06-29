@@ -4,6 +4,8 @@
 """
 from flask_restful import Resource
 
+from app.dao import clubDao
+
 
 class ClubDto:
     """club接口数据传输对象.
@@ -15,13 +17,19 @@ class ClubDto:
 
 
 class ClubsApi(Resource):
-    def get(self):
-        """对应 /api/clubs/. 获取所有Club.
+    def get(self) -> 'json':
+        """对应 /api/clubs. 获取所有Club.
 
         """
+        # user = User()
+        # user.username = "zmf"
+        # user.user_id = "1"
+        # user.gender = False
+        # add_user(user)
+        print(clubDao.get_club_by_id("1").user_id)
         pass
 
-    def post(self):
+    def post(self) -> 'json':
         """对应 /api/clubs. 新增一个Club.
 
         """

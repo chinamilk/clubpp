@@ -12,6 +12,9 @@
         数据库账号:
         用户: clubpp 密码: 123456sql
         
+        数据库python支持库:
+        sqlalchemy, pymysql
+        
     3. supervisor
         进程管理工具
 
@@ -20,6 +23,9 @@
 
     5. Ubuntu(16.04LTS)
         部署环境
+    
+    6. gunicorn(WSGI)
+        flask程序WSGI容器
     
 ## 前后端交互Api设计：
 - [点击这里](https://github.com/Rabbit-A512/clubpp).
