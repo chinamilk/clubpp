@@ -4,7 +4,7 @@
 """
 from flask_restful import Resource
 
-from app.dao import clubDao
+from app.dao import club_dao
 
 
 class ClubDto:
@@ -26,7 +26,7 @@ class ClubsApi(Resource):
         # user.user_id = "1"
         # user.gender = False
         # add_user(user)
-        print(clubDao.get_club_by_id("1").user_id)
+        print(club_dao.get_club_by_id("1").user_id)
         pass
 
     def post(self) -> 'json':
