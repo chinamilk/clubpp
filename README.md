@@ -9,7 +9,11 @@
         flask restful 支持
         
     2. mariadb(version 15.1)
-        数据库
+        数据库账号:
+        用户: clubpp 密码: 123456sql
+        
+        数据库python支持库:
+        sqlalchemy, pymysql
         
     3. supervisor
         进程管理工具
@@ -19,6 +23,9 @@
 
     5. Ubuntu(16.04LTS)
         部署环境
+    
+    6. gunicorn(WSGI)
+        flask程序WSGI容器
     
 ## 前后端交互Api设计：
 - [点击这里](https://github.com/Rabbit-A512/clubpp).
@@ -44,3 +51,6 @@
     
     
     建议准备推送时，更新依赖文件
+## 代码规范(参考)
+1. [Python代码规范和命名规范](http://www.imooc.com/article/19184?block_id=tuijian_wz#child_5_1)
+2. [Python 编码规范(Google)](http://www.runoob.com/w3cnote/google-python-styleguide.html)

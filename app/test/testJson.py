@@ -1,4 +1,5 @@
-from util.util import obj2json
+# -*-coding:utf-8-*-
+from app import obj2json
 
 
 class Student:
