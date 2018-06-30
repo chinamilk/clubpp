@@ -2,6 +2,7 @@
 """Database operations about table club.
 
 """
+from app import db
 from app.dao import Club
 
 
@@ -20,6 +21,7 @@ def get_club_by_id(club_id: str) -> Club:
     :param club_id: club id
     :return: club instance
     """
+    return db.session.query(Club).filter(Club.addresses == " ").first()
     pass
 
 
