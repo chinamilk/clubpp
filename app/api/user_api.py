@@ -4,7 +4,8 @@
 """
 from flask_restful import Resource
 from flask import request
-import json
+from app.dao.user_dao import *
+from app.dao import User
 
 class UsersApi(Resource):
     def post(self):
@@ -14,7 +15,21 @@ class UsersApi(Resource):
         :return: 添加后的用户数据包括id
         '''
         req=request.json
-        return {'/api/users': req}
+        add_user(User(
+
+            req.get('username'),
+            req.get('name'),
+            req.get('password'),
+            req.get('email'),
+            req.get('day_of_birth'),
+            req.get('gender'),
+            req.get('academy'),
+            req.get('major'),
+            req.get('bio'),
+            req.get('phone'),
+            req.get('year_of_enrollment')
+        ))
+        return {'/api/users': req.get('phone')}
     def put(self, user_id):
         '''
         对应 /api/users/:user_id -put
