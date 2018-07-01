@@ -4,10 +4,11 @@
 """
 from flask_restful import Resource
 
+from app.api import BaseDto
 from app.dao import club_dao
 
 
-class ClubDto:
+class ClubDto(BaseDto):
     """club接口数据传输对象.
 
     """
