@@ -3,6 +3,7 @@
 
 """
 import json
+import uuid
 
 
 def obj2json(obj) -> str:
@@ -22,3 +23,11 @@ def map_path_to_url(filepath: str) -> str:
     :return: the http url
     """
     pass
+
+
+def generate_uuid():
+    """Generate a unique id for record.
+
+    :return: uuid value
+    """
+    return uuid.uuid4().hex
