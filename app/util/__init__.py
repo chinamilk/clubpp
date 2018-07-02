@@ -14,6 +14,7 @@ class ComplexEncoder(JSONEncoder):
     """针对复杂类的转JSON方式进行扩展, 如果特定类型没有进行覆盖，请在default方法中自行拓展.
 
     """
+
     def default(self, o):
         if isinstance(o, datetime):
             return o.strftime('%Y-%m-%d %H:%M:%S')
@@ -52,3 +53,26 @@ def generate_uuid():
     :return: uuid value
     """
     return uuid.uuid4().hex
+
+
+def str2date(date_str: str):
+    """Convert string to date.
+
+    :param date_str: date string
+    :return:
+    """
+    return datetime.strptime(date_str, "%Y-%m-%d").date()
+
+
+def add_attribute(obj: object, name: str, value, default_value=None) -> object:
+    """Add the attribute to the obj if the value is not equal to default_value given.
+
+    :param obj: the object
+    :param name: the name of the field
+    :param value: the value of the field
+    :param default_value: the default value
+    :return: the obj
+    """
+    if value != default_value:
+        obj.__setattr__(name, value)
+    return obj

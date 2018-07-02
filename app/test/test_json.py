@@ -1,11 +1,12 @@
 # -*-coding:utf-8-*-
 from datetime import datetime
 
+from app.api import BaseDto
 from app.api.club_api import ClubDto
 from app.util import obj2json
 
 
-class Student:
+class Student(BaseDto):
     """简单的Dto类转JSON示例
 
     """
@@ -16,9 +17,9 @@ class Student:
         self.hobby = ['羽毛球', '游泳']
 
 
-# student = Student()
-# print(obj2json(student))
-# print(obj2json({'name': [1, 2, 3]}))
+student = Student()
+print(obj2json(student))
+print(obj2json({'name': [1, 2, 3]}))
 
 club = ClubDto()
 club.name = "1"
