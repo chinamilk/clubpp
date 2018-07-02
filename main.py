@@ -14,10 +14,8 @@ api.add_resource(FileUploadApi, '/upload', endpoint="file_upload")
 api.add_resource(ClubsApi, '/api/clubs')
 
 # cuppar
-api.add_resource(UsersApi, '/api/users')
+api.add_resource(UsersApi, '/api/users', '/api/users/')
 api.add_resource(UsersApiById, '/api/users/<string:user_id>', '/api/users/<string:user_id>/')
-# api.add_resource(UsersApiGetByName, '/api/users?username=')
-# api.add_resource(UsersApiGetAll, '/api/users', '/api/users/')
 
 
 if __name__ == '__main__':

@@ -23,6 +23,7 @@ class User(db.Model):
     name = db.Column(db.VARCHAR, nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False)
     year_of_enrollment = db.Column(db.Integer, nullable=False)
+    bio=db.Column(db.VARCHAR, nullable=False)
 
     def __init__(self,
                  user_id,
