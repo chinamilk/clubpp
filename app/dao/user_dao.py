@@ -1,6 +1,6 @@
 # -*-coding:utf-8-*-
 from app import db
-from app.dao import User, Request
+from app.dao import User
 
 
 def add_user(user: User):  # 测试通过
@@ -39,6 +39,3 @@ def get_users():  # 测试通过
 def get_user_by_id(user_id: int):  # 测试通过
     return User.query.filter_by(user_id=user_id).first()
 
-
-def get_requests():
-    return Request.query.all()

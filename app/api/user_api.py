@@ -5,7 +5,8 @@
 from flask_restful import Resource
 from flask import request
 from app.dao.user_dao import *
-from app.dao import User, Request, Club
+from app.dao.request_dao import get_requests
+from app.dao import User
 from app.util import generate_uuid
 from app.util import obj2json
 from app.util import BaseDto
@@ -188,27 +189,3 @@ class UsersApiById(Resource):
             res = user_dto
         return obj2json(res)
 
-# class UsersApiGetByName(Resource):
-#     def get(self):
-#         '''
-#         /api/users?name=cuppar -get
-#         根据用户名获取用户数据
-#         :param username: 用户名
-#         :return: 该用户名的用户数据
-#         '''
-#         username=request.query_string.username
-#         return {
-#             '/api/users?name=cuppar -get': 'userMsg',
-#             'username': username
-#         }
-#
-# class UsersApiGetAll(Resource):
-#     def get(self):
-#         '''
-#         /api/users -get
-#         获取所有用户
-#         :return: 所有用户数据（列表）
-#         '''
-#         return {
-#             '/api/users -get': '[msgs]'
-#         }
