@@ -26,7 +26,7 @@ CREATE TABLE `club` (
   `club_id` varchar(100) NOT NULL,
   `club_name` varchar(45) DEFAULT NULL,
   `created_date` date DEFAULT NULL,
-  `menber_number` int(11) DEFAULT NULL,
+  `member_number` int(11) DEFAULT NULL,
   `club_bio` varchar(45) DEFAULT NULL,
   `tags` varchar(45) DEFAULT NULL,
   `addresses` varchar(255) DEFAULT NULL,
@@ -137,6 +137,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('1','zmf',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -149,4 +150,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-28  1:23:39
+-- Dump completed on 2018-07-02 21:44:24

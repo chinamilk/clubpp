@@ -12,7 +12,8 @@ def add_club(club: Club):
     :param club: the club instance with data
     :return: None
     """
-    pass
+    db.session.add(club)
+    db.session.commit()
 
 
 def get_club_by_id(club_id: str) -> Club:
@@ -21,8 +22,7 @@ def get_club_by_id(club_id: str) -> Club:
     :param club_id: club id
     :return: club instance
     """
-    return db.session.query(Club).filter(Club.addresses == " ").first()
-    pass
+    return db.session.query(Club).filter(Club.club_id == club_id).first()
 
 
 def update_club(club: Club):
@@ -31,7 +31,26 @@ def update_club(club: Club):
     :param club: the club instance with data and club id
     :return: None
     """
-    pass
+    record = db.session.query(Club).filter(Club.club_id == club.club_id).first()
+    record.club_name = club.club_name
+    record.member_number = club.member_number
+    record.club_bio = club.club_bio
+    record.master_id = club.master_id
+    record.tags = club.tags
+    record.addresses = club.addresses
+    record.created_date = club.created_date
+    db.session.commit()
+
+
+def pass_club(club_id: str):
+    """Pass the establishment of the club.
+
+    :param club_id: the club id
+    :return: None
+    """
+    record = db.session.query(Club).filter(Club.club_id == club_id).first()
+    record.is_passed = True
+    db.session.commit()
 
 
 def delete_club_by_id(club_id: str):
@@ -40,12 +59,14 @@ def delete_club_by_id(club_id: str):
     :param club_id: club id
     :return: None
     """
-    pass
+    record = db.session.query(Club).filter(Club.club_id == club_id).first()
+    db.session.delete(record)
+    db.session.commit()
 
 
 def get_all_clubs() -> list:
-    """Get all clubs in database.
+    """Get all clubs whose if_passed is True in database.
 
     :return: a list that contains all clubs
     """
-    pass
+    return db.session.query(Club).filter(Club.is_passed == True).first()
