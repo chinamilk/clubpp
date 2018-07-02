@@ -63,7 +63,7 @@ class Club(db.Model):
     __tablename__ = "club"
     club_id = db.Column(db.VARCHAR, primary_key=True)
     club_name = db.Column(db.VARCHAR, nullable=False)
-    create_date = db.Column(db.DATE, nullable=False)
+    created_date = db.Column(db.DATE, nullable=False)
     member_number = db.Column(db.Integer, nullable=False)
     club_bio = db.Column(db.VARCHAR, nullable=False)
     tags = db.Column(db.VARCHAR, nullable=False)
