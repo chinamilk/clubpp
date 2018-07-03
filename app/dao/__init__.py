@@ -23,6 +23,34 @@ class User(db.Model):
     name = db.Column(db.VARCHAR, nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False)
     year_of_enrollment = db.Column(db.Integer, nullable=False)
+    bio=db.Column(db.VARCHAR, nullable=False)
+
+    def __init__(self,
+                 user_id,
+                 username,
+                 name,
+                 password,
+                 email,
+                 day_of_birth,
+                 gender,
+                 academy,
+                 major,
+                 bio,
+                 phone,
+                 year_of_enrollment
+                 ):
+        self.user_id = user_id
+        self.username = username
+        self.name = name
+        self.password = password
+        self.email = email
+        self.day_of_birth = day_of_birth
+        self.gender = gender
+        self.academy = academy
+        self.major = major
+        self.bio = bio
+        self.phone = phone
+        self.year_of_enrollment = year_of_enrollment
 
     def __repr__(self):
         return '<User %r>' % self.username
