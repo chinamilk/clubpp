@@ -22,6 +22,6 @@ api.add_resource(UsersApiById, '/api/users/<string:user_id>', '/api/users/<strin
 api.add_resource(RequestApi, '/api/requests', '/api/requests/')
 api.add_resource(RequestApiById, '/api/requests/<string:request_id>', '/api/requests/<string:request_id>/')
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run(host='0.0.0.0', port='5005')

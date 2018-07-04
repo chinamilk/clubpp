@@ -17,13 +17,12 @@ class ImageApi(Resource):
         :return: json
         """
         parser = reqparse.RequestParser()
-        parser.add_argument('image', type=werkzeug.datastructures.FileStorage, location='files', required=True,
+        parser.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files', required=True,
                             help="图片不能为空")
         args = parser.parse_args()
-        file = args.get('image')
+        file = args.get('file')
         image = build_image(identifier, file.filename)
         file.save(image.image_path)
-        print(file.__dict__)
         image_dao.add_image(image)
         image = image_dao.get_image_by_id(image.image_id)
         dto = convert_from_model_to_image_dto(image)
