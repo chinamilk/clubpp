@@ -6,6 +6,14 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 
+DESTINATION_DIR = "/var/www/html/download/clubpp/"
+WWW_ROOT = "/var/www/html"
+SERVER_IP = "120.78.187.115"
+BASIC_URL = "http://" + SERVER_IP + ":80"
+
+DATETIME_PATTERN = '%Y-%m-%d %H:%M:%S'
+DATE_PATTERN = "%Y-%m-%d"
+
 pymysql.install_as_MySQLdb()
 db = SQLAlchemy()
 

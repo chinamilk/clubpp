@@ -1,49 +1,82 @@
 # -*-coding:utf-8-*-
 import werkzeug
+from flask import request
 from flask_restful import Resource, reqparse
 
+from app import DESTINATION_DIR
 from app.api import ImageDto
-from app.dao import Image
-from app.util import map_path_to_url
+from app.dao import Image, image_dao
+from app import util
 
 
 class FileUploadApi(Resource):
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('image', type=werkzeug.datastructures.FileStorage, location='files')
+        parser.add_argument('image', type=werkzeug.datastructures.FileStorage, location='files', required=True,
+                            help="图片不能为空")
         args = parser.parse_args()
         file = args.get('image')
         print("image", file)
         print(args)
+        print(file.__dict__)
         file.save("/home/zmf/Documents/aaaaaaaaaaaaaaaaaaaaa.png")
+        print(request.data.decode("utf-8"))
         return {'post': 'successful'}
 
 
 class ImageApi(Resource):
-    def post(self) -> 'json':
+    def post(self, identifier) -> 'json':
         """新增一张图片.
-           对应URL为: /api/images
+           对应URL为: /api/images/<string: identifier>
 
         :return: json
         """
-        pass
+        parser = reqparse.RequestParser()
+        parser.add_argument('image', type=werkzeug.datastructures.FileStorage, location='files', required=True,
+                            help="图片不能为空")
+        args = parser.parse_args()
+        file = args.get('image')
+        image = build_image(identifier, file.filename)
+        file.save(image.image_path)
+        image = image_dao.get_image_by_id(image.image_id)
+        dto = convert_from_model_to_image_dto(image)
+        return util.obj2json(dto)
 
-    def delete(self) -> 'json':
+    def delete(self, identifier) -> 'json':
         """删除一张图片.
-           对应URL为: /api/images/<string: image_id>
+           对应URL为: /api/images/<string: identifier>
         :return: json
         """
-        pass
+        image = image_dao.get_image_by_id(identifier)
+        image_dao.delete_image_by_id(identifier)
+        dto = convert_from_model_to_image_dto(image)
+        return util.obj2json(dto)
 
 
-def comvert_from_model_to_image_dto(image: Image):
+def convert_from_model_to_image_dto(image: Image):
     """Convert from image to image dto
 
     :param image: image
     :return: image dto
     """
     dto = ImageDto()
-    dto.url = map_path_to_url(image.image_path)
+    dto.url = util.map_path_to_url(image.image_path)
     dto.club_id = image.club_id
     dto.image_id = image.image_id
     return dto
+
+
+def build_image(club_id: str, origin_name: str) -> Image:
+    """Build a new image according to the club id.
+
+    :param club_id: the id of the club that owns the image.
+    :param origin_name: the origin name of the image.
+    :return: the instance of Image.
+    """
+    image = Image()
+    image.club_id = club_id
+    suffix = origin_name.split('.')[-1]
+    image.image_id = util.generate_uuid()
+    image_name = image.image_id + suffix
+    image.image_path = DESTINATION_DIR + image_name
+    return image

@@ -9,10 +9,12 @@ from flask import request
 from flask_restful import Resource
 
 from app.api import ClubDto
-from app.api.image_api import comvert_from_model_to_image_dto
+from app.api import image_api
 from app.dao import Club
+from app.dao import club_dao
 from app.dao import image_dao
-from app.util import generate_uuid, str2date, add_attribute
+from app.dao import request_dao
+from app import util
 
 
 class ClubsApi(Resource):
@@ -20,24 +22,21 @@ class ClubsApi(Resource):
         """对应 /api/clubs. 获取所有Club.
 
         """
-        # club = Club()
-        # club.club_id = "club1"
-        # club.master_id = "1"
-        # club.club_name = "chess"
-        # club.member_number = 1
-        # club_dao.add_club(club)
-        # print(club_dao.get_club_by_id("club1").club_name)
-        # club_dao.pass_club("club1")
-        # print(club_dao.get_club_by_id("club1").is_passed)
-        # return '{"resp": "hello"}'
-        pass
+        clubs = club_dao.get_all_clubs()
+        dtos = []
+        for club in clubs:
+            dtos.append(convert_from_model_to_dto(club))
+        return util.obj2json(dtos)
 
     def post(self) -> 'json':
         """对应 /api/clubs. 新增一个Club.
 
         """
-        print(json.loads(request.data.decode("utf-8")))
-        pass
+        club = convert_from_request_to_model(request.data.decode("utf-8"))
+        club_dao.add_club(club)
+        club = club_dao.get_club_by_id(club.club_id)
+        dto = convert_from_model_to_dto(club)
+        return util.obj2json(dto)
 
 
 class ClubApi(Resource):
@@ -45,19 +44,28 @@ class ClubApi(Resource):
         """对应 /api/clubs/<string:club_id>. 获取特定的Club.
 
         """
-        pass
+        club = club_dao.get_club_by_id(club_id)
+        dto = convert_from_model_to_dto(club)
+        return util.obj2json(dto)
 
     def put(self, club_id: str) -> 'json':
         """对应 /api/clubs/<string:club_id>. 修改特定的Club.
 
         """
-        pass
+        club = convert_from_request_to_model(request.data.decode("utf-8"))
+        club_dao.update_club(club)
+        club = club_dao.get_club_by_id(club_id)
+        dto = convert_from_model_to_dto(club)
+        return util.obj2json(dto)
 
     def delete(self, club_id: str) -> 'json':
         """对应 /api/clubs/<string:club_id>. 删除特定的Club.
 
         """
-        pass
+        club = club_dao.get_club_by_id(club_id)
+        dto = convert_from_model_to_dto(club)
+        club_dao.delete_club_by_id(club_id)
+        return util.obj2json(dto)
 
 
 def convert_from_model_to_dto(club: Club) -> ClubDto:
@@ -75,20 +83,20 @@ def convert_from_model_to_dto(club: Club) -> ClubDto:
     dto.master_id = club.master_id
     dto.tags = club.tags
     dto.addressed = club.addresses
-    dto.images = map(comvert_from_model_to_image_dto, image_dao.get_images_by_club_id(club.club_id))
-    # dto.request_ids = get_all_request_id_by_club_id()
+    dto.images = map(image_api.convert_from_model_to_image_dto, image_dao.get_images_by_club_id(club.club_id))
+    dto.request_ids = request_dao.get_all_request_id_by_club_id(club.club_id)
     return dto
 
 
-def convert_from_request_to_model(request: 'json') -> Club:
+def convert_from_request_to_model(req_body: 'json') -> Club:
     """把请求中的json转为数据库操作需要的Club对象
 
-    :param request: 请求中的json数据
+    :param req_body: 请求中的json数据
     :return: 填充数据的Club对象
     """
-    data = json.loads(request)
+    data = json.loads(req_body)
     return build_club(data.get("club_name"), data.get("club_bio"), data.get("member_number", -1), data.get("tags"),
-                      data.get("addresses"), data.get("master_id"), str2date(data.get("created_date")))
+                      data.get("addresses"), data.get("master_id"), util.str2date(data.get("created_date")))
 
 
 def build_club(club_name: str = None, club_bio: str = None, member_number: int = -1, tags: str = None,
@@ -98,15 +106,15 @@ def build_club(club_name: str = None, club_bio: str = None, member_number: int =
     :return: club instance
     """
     club = Club()
-    club.club_id = generate_uuid()
+    club.club_id = util.generate_uuid()
     club.is_passed = False
-    add_attribute(club, "club_name", club_name)
-    add_attribute(club, "club_bio", club_bio)
-    add_attribute(club, "member_number", member_number, default_value=-1)
-    add_attribute(club, "tags", tags)
-    add_attribute(club, "addresses", addresses)
-    add_attribute(club, "master_id", master_id)
-    add_attribute(club, "created_date", created_date)
+    util.add_attribute(club, "club_name", club_name)
+    util.add_attribute(club, "club_bio", club_bio)
+    util.add_attribute(club, "member_number", member_number, default_value=-1)
+    util.add_attribute(club, "tags", tags)
+    util.add_attribute(club, "addresses", addresses)
+    util.add_attribute(club, "master_id", master_id)
+    util.add_attribute(club, "created_date", created_date)
     return club
 
 # if __name__ == "__main__":

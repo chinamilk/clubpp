@@ -7,6 +7,7 @@ import uuid
 from datetime import datetime, date
 from json import JSONEncoder
 
+from app import WWW_ROOT, BASIC_URL, DATE_PATTERN, DATETIME_PATTERN
 from app.api import BaseDto
 
 
@@ -17,9 +18,9 @@ class ComplexEncoder(JSONEncoder):
 
     def default(self, o):
         if isinstance(o, datetime):
-            return o.strftime('%Y-%m-%d %H:%M:%S')
+            return o.strftime(DATETIME_PATTERN)
         elif isinstance(o, date):
-            return o.strftime('%Y-%m-%d')
+            return o.strftime(DATE_PATTERN)
         elif isinstance(o, set):
             return json.dumps(list(o))
         elif isinstance(o, BaseDto):
@@ -44,7 +45,8 @@ def map_path_to_url(filepath: str) -> str:
     :param filepath: the absolute logical path of the file (the path field of <user> table and <club> table)
     :return: the http url
     """
-    pass
+    relative_path = filepath.replace(WWW_ROOT)
+    return BASIC_URL + relative_path
 
 
 def generate_uuid():
@@ -61,7 +63,7 @@ def str2date(date_str: str):
     :param date_str: date string
     :return:
     """
-    return datetime.strptime(date_str, "%Y-%m-%d").date()
+    return datetime.strptime(date_str, DATE_PATTERN).date()
 
 
 def add_attribute(obj: object, name: str, value, default_value=None) -> object:

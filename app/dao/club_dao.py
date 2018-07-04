@@ -69,4 +69,4 @@ def get_all_clubs() -> list:
 
     :return: a list that contains all clubs
     """
-    return db.session.query(Club).filter(Club.is_passed == True).first()
+    return db.session.query(Club).filter(Club.is_passed == True).all()
