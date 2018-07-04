@@ -31,3 +31,5 @@ print(obj2json(datetime.now()))
 se = {1, 2}
 print(obj2json(se))
 print(obj2json(club))
+print(obj2json(club))
+

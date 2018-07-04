@@ -13,7 +13,7 @@ api = Api(app)
 # ZmfCn
 # api.add_resource(FileUploadApi, '/upload', endpoint="file_upload")
 api.add_resource(ClubsApi, '/api/clubs')
-api.add_resource(ClubApi, '/api/club/<string:club_id>')
+api.add_resource(ClubApi, '/api/clubs/<string:club_id>')
 api.add_resource(ImageApi, '/api/images/<string:identifier>')
 
 # cuppar

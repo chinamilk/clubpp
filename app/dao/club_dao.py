@@ -2,7 +2,7 @@
 """Database operations about table club.
 
 """
-from app import db
+from app import db, util
 from app.dao import Club
 
 
@@ -32,13 +32,13 @@ def update_club(club: Club):
     :return: None
     """
     record = db.session.query(Club).filter(Club.club_id == club.club_id).first()
-    record.club_name = club.club_name
-    record.member_number = club.member_number
-    record.club_bio = club.club_bio
-    record.master_id = club.master_id
-    record.tags = club.tags
-    record.addresses = club.addresses
-    record.created_date = club.created_date
+    util.add_attribute(record, "club_name", club.club_name)
+    util.add_attribute(record, "club_bio", club.club_bio)
+    util.add_attribute(record, "member_number", club.member_number)
+    util.add_attribute(record, "tags", club.tags)
+    util.add_attribute(record, "addresses", club.addresses)
+    util.add_attribute(record, "master_id", club.master_id)
+    util.add_attribute(record, "created_date", club.created_date)
     db.session.commit()
 
 

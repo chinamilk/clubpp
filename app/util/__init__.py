@@ -29,14 +29,14 @@ class ComplexEncoder(JSONEncoder):
             return JSONEncoder.default(self, o)
 
 
-def obj2json(obj) -> str:
-    """根据实例属性，将python对象转化为json字符串。
+def obj2json(obj) -> dict:
+    """根据实例属性，将python对象转化为json字典。
 
     :param obj: 要被转化的对象
-    :return: json字符串
+    :return: json 字典
     """
 
-    return json.dumps(obj, cls=ComplexEncoder, ensure_ascii=False)
+    return json.loads(json.dumps(obj, cls=ComplexEncoder, ensure_ascii=False))
 
 
 def map_path_to_url(filepath: str) -> str:
@@ -45,7 +45,7 @@ def map_path_to_url(filepath: str) -> str:
     :param filepath: the absolute logical path of the file (the path field of <user> table and <club> table)
     :return: the http url
     """
-    relative_path = filepath.replace(WWW_ROOT)
+    relative_path = filepath.replace(WWW_ROOT, "")
     return BASIC_URL + relative_path
 
 

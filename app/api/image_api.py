@@ -1,30 +1,15 @@
 # -*-coding:utf-8-*-
 import werkzeug
-from flask import request
 from flask_restful import Resource, reqparse
 
 from app import DESTINATION_DIR
+from app import util
 from app.api import ImageDto
 from app.dao import Image, image_dao
-from app import util
-
-
-class FileUploadApi(Resource):
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('image', type=werkzeug.datastructures.FileStorage, location='files', required=True,
-                            help="图片不能为空")
-        args = parser.parse_args()
-        file = args.get('image')
-        print("image", file)
-        print(args)
-        print(file.__dict__)
-        file.save("/home/zmf/Documents/aaaaaaaaaaaaaaaaaaaaa.png")
-        print(request.data.decode("utf-8"))
-        return {'post': 'successful'}
 
 
 class ImageApi(Resource):
+    # tested
     def post(self, identifier) -> 'json':
         """新增一张图片.
            对应URL为: /api/images/<string: identifier>
@@ -38,10 +23,13 @@ class ImageApi(Resource):
         file = args.get('image')
         image = build_image(identifier, file.filename)
         file.save(image.image_path)
+        print(file.__dict__)
+        image_dao.add_image(image)
         image = image_dao.get_image_by_id(image.image_id)
         dto = convert_from_model_to_image_dto(image)
         return util.obj2json(dto)
 
+    # tested
     def delete(self, identifier) -> 'json':
         """删除一张图片.
            对应URL为: /api/images/<string: identifier>
@@ -77,6 +65,6 @@ def build_image(club_id: str, origin_name: str) -> Image:
     image.club_id = club_id
     suffix = origin_name.split('.')[-1]
     image.image_id = util.generate_uuid()
-    image_name = image.image_id + suffix
+    image_name = image.image_id + '.' + suffix
     image.image_path = DESTINATION_DIR + image_name
     return image
