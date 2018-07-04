@@ -3,9 +3,9 @@ from flask_restful import Api
 
 from app import create_app
 from app.api.club_api import ClubsApi, ClubApi
-from app.api.image_api import FileUploadApi, ImageApi
-from app.api.user_api import UsersApi, UsersApiById
+from app.api.image_api import ImageApi
 from app.api.request_api import RequestApi, RequestApiById
+from app.api.user_api import UsersApi, UsersApiById
 
 app = create_app()
 api = Api(app)
