@@ -9,8 +9,8 @@ import flask_cors
 
 DESTINATION_DIR = "/var/www/html/download/clubpp/"
 WWW_ROOT = "/var/www/html"
-# SERVER_IP = "120.78.187.115"
-SERVER_IP = "127.0.0.1"
+SERVER_IP = "120.78.187.115"
+# SERVER_IP = "127.0.0.1"
 BASIC_URL = "http://" + SERVER_IP + ":80"
 
 DATETIME_PATTERN = '%Y-%m-%d %H:%M:%S'
