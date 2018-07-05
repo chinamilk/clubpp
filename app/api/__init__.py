@@ -10,3 +10,58 @@ class BaseDto:
 
     """
     pass
+
+
+class ClubDto(BaseDto):
+    """club接口数据传输对象.
+       对应的json数据格式为:
+       {
+          "club_id": "uuid",
+          "club_name": "xxx club",
+          "created_date": "2000-01-03",
+          "member_number": 123,
+          "club_bio": "这是一个社团。",
+          "tags": "a,b,c",
+          "addresses": "addr1,addr2,addr3",
+          "master_id": "uuid",
+          "images": [
+            {
+              "url": "url1",
+              "club_id": "uuid",
+              "image_id": "uuin"
+            },
+            {
+              "url": "url2",
+              "club_id": "uuid",
+              "image_id": "uuin"
+            },
+            {
+              "url": "url3",
+              "club_id": "uuid",
+              "image_id": "uuin"
+            }
+          ],
+          "request_ids": [
+            "uuid1",
+            "uuid2",
+            "uuid3"
+          ]
+       }
+
+    """
+
+    def __init__(self):
+        pass
+
+
+class ImageDto(BaseDto):
+    """图片对应数据传输对象
+    对应的json数据格式:
+    {
+        "url": "url1",
+        "club_id": "uuid",
+        "image_id": "uuid"
+    }
+    """
+    def __init__(self):
+        pass

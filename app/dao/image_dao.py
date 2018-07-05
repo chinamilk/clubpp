@@ -2,7 +2,7 @@
 """Database operations about table image.
 
 """
-
+from app import db
 from . import Image
 
 
@@ -12,7 +12,7 @@ def get_image_by_id(image_id: str) -> Image:
     :param image_id: image id
     :return: image instance
     """
-    pass
+    return db.session.query(Image).filter(Image.image_id == image_id).first()
 
 
 def get_images_by_club_id(club_id: str) -> list:
@@ -21,7 +21,7 @@ def get_images_by_club_id(club_id: str) -> list:
     :param club_id: club_id
     :return: list that contains all images of the club
     """
-    pass
+    return db.session.query(Image).filter(Image.club_id == club_id).all()
 
 
 def add_image(image: Image):
@@ -30,7 +30,8 @@ def add_image(image: Image):
     :param image: image instance that contains all data
     :return: None
     """
-    pass
+    db.session.add(image)
+    db.session.commit()
 
 
 def delete_image_by_id(image_id: str):
@@ -39,4 +40,6 @@ def delete_image_by_id(image_id: str):
     :param image_id: image id
     :return: None
     """
-    pass
+    record = db.session.query(Image).filter(Image.image_id == image_id).first()
+    db.session.delete(record)
+    db.session.commit()

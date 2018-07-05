@@ -51,6 +51,8 @@
     
     
     建议准备推送时，更新依赖文件
+## 注意事项
+    主要的配置和常量都在app/__init__.py中定义，方便管理
 ## 代码规范(参考)
 1. [Python代码规范和命名规范](http://www.imooc.com/article/19184?block_id=tuijian_wz#child_5_1)
 2. [Python 编码规范(Google)](http://www.runoob.com/w3cnote/google-python-styleguide.html)
