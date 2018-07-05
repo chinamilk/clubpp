@@ -7,12 +7,9 @@ import uuid
 import jwt
 from datetime import datetime, date
 from json import JSONEncoder
-
 from app import WWW_ROOT, BASIC_URL, DATE_PATTERN, DATETIME_PATTERN, SECRET_KEY
 from app.api import BaseDto
-
 from flask import make_response, request
-
 from app.dao import user_dao
 
 
