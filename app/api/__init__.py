@@ -3,6 +3,12 @@
     响应json设计为字典或者对象，字段设计为键或者属性，使用相关JSON包导出为json字符串，避免使用字符串拼接。
 
 """
+from flask_restful import Resource
+from app import cors
+
+class OptionApi(Resource):
+    def option(self):
+        return cors
 
 
 class BaseDto:
