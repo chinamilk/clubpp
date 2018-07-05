@@ -6,7 +6,6 @@ import datetime
 import jwt
 
 from app import db
-from app.dao import user_dao
 
 SECRET_KEY = 'secret'
 
