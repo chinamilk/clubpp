@@ -2,6 +2,7 @@
 """User
 """
 import json
+import flask
 
 from flask_restful import Resource
 from app.util import login_required, admin_required
@@ -111,8 +112,13 @@ class UsersApi(Resource):
             request_ids=[]
         )
         res = user_dto
+        res=flask.make_response(res)
+        res.headers['Access-Control-Allow-Origin'] = "*"
+        res.headers['Access-Control-Allow-Headers'] = "content-type, x-auth-token"
+        res.headers['Access-Control-Allow-Methods'] = "GET, PUT, POST, DELETE, OPTIONS, HEAD"
 
-        return obj2json(res), 200, cors
+        # return obj2json(res)
+        return res
 
     def get(self):  # 测试通过
         '''
