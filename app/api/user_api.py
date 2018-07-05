@@ -12,6 +12,7 @@ from app.dao import User
 from app.util import generate_uuid
 from app.util import obj2json
 from app.util import BaseDto
+from app import cors
 
 
 class UsersDto(BaseDto):
@@ -109,7 +110,7 @@ class UsersApi(Resource):
         )
         res = user_dto
 
-        return obj2json(res)
+        return obj2json(res), 200, cors
 
     def get(self):  # 测试通过
         '''

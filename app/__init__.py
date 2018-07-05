@@ -21,6 +21,12 @@ SECRET_KEY = 'secret'
 pymysql.install_as_MySQLdb()
 db = SQLAlchemy()
 
+cors={
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "content-type, x-auth-token",
+    "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS, HEAD",
+}
+
 
 def create_app():
     """factory method to create Flask instance
