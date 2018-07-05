@@ -14,6 +14,7 @@ from app.util import generate_uuid
 from app.util import obj2json
 from app.util import BaseDto
 from app import cors
+from app import app
 
 
 class UsersDto(BaseDto):
@@ -73,9 +74,18 @@ def add_clubids_and_requestids_to_dto(user_result: User):
     return user_dto
 
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'content-type, x-auth-token')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, HEAD')
+    return response
+
+@app.after_request
 class UsersApi(Resource):
     def option(self):
         return cors
+
     def post(self):  # 测试通过
         """对应 /api/users -post
         :param req: 添加的用户数据
@@ -112,12 +122,17 @@ class UsersApi(Resource):
             request_ids=[]
         )
         res = user_dto
-        res=flask.make_response(res)
+        res = flask.make_response(res)
         res.headers['Access-Control-Allow-Origin'] = "*"
         res.headers['Access-Control-Allow-Headers'] = "content-type, x-auth-token"
         res.headers['Access-Control-Allow-Methods'] = "GET, PUT, POST, DELETE, OPTIONS, HEAD"
 
         # return obj2json(res)
+        # return res
+
+        res.headers.add('Access-Control-Allow-Origin', '*')
+        res.headers.add('Access-Control-Allow-Headers', 'content-type, x-auth-token')
+        res.headers.add('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, HEAD')
         return res
 
     def get(self):  # 测试通过

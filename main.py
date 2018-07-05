@@ -11,8 +11,8 @@ from app.dao import user_dao, User
 
 from flask import request, make_response, jsonify
 from app.api import OptionApi
+from app import app
 
-app = create_app()
 api = Api(app)
 
 # ZmfCn
