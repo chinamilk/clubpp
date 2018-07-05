@@ -6,7 +6,7 @@ import flask
 
 from flask_restful import Resource
 from app.util import login_required, admin_required
-from flask import request
+from flask import request, make_response
 from app.dao.user_dao import *
 from app.dao.request_dao import get_requests
 from app.dao import User
@@ -122,14 +122,14 @@ class UsersApi(Resource):
             request_ids=[]
         )
         res = user_dto
-        res = flask.make_response(res)
-        res.headers['Access-Control-Allow-Origin'] = "*"
-        res.headers['Access-Control-Allow-Headers'] = "content-type, x-auth-token"
-        res.headers['Access-Control-Allow-Methods'] = "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+        # res = flask.make_response(res)
+        # res.headers['Access-Control-Allow-Origin'] = "*"
+        # res.headers['Access-Control-Allow-Headers'] = "content-type, x-auth-token"
+        # res.headers['Access-Control-Allow-Methods'] = "GET, PUT, POST, DELETE, OPTIONS, HEAD"
 
         # return obj2json(res)
         # return res
-
+        res=make_response(res)
         res.headers.add('Access-Control-Allow-Origin', '*')
         res.headers.add('Access-Control-Allow-Headers', 'content-type, x-auth-token')
         res.headers.add('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, HEAD')
