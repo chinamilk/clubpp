@@ -48,21 +48,22 @@ class UserAvatar(Resource):
 
     """
 
+    @login_required
     def post(self, user_id):
-        pass
-        # parser = reqparse.RequestParser()
-        # parser.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files', required=True,
-        #                     help="图片不能为空")
-        # args = parser.parse_args()
-        # file = args.get('file')
-        # user = user_dao.get_user_by_id(user_id)
-        # suffix = file.filename.split('.')[-1]
-        # image_id = util.generate_uuid()
-        # image_name = image_id + '.' + suffix
-        # file.save()
-        # image = image_dao.get_image_by_id(image.image_id)
-        # dto = convert_from_model_to_image_dto(image)
-        # return util.obj2json(dto)
+        parser = reqparse.RequestParser()
+        parser.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files', required=True,
+                            help="图片不能为空")
+        args = parser.parse_args()
+        file = args.get('file')
+        user = user_dao.get_user_by_id(user_id)
+        suffix = file.filename.split('.')[-1]
+        image_id = util.generate_uuid()
+        image_name = image_id + '.' + suffix
+        image_path = DESTINATION_DIR + image_name
+        file.save(image_path)
+        user.avatar_path = image_path
+        user_dao.update_user(user)
+        return {'upload', 'successful'}
 
 
 def convert_from_model_to_image_dto(image: Image):
