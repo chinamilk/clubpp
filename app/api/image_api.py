@@ -5,11 +5,11 @@ from flask_restful import Resource, reqparse
 from app import DESTINATION_DIR
 from app import util
 from app.api import ImageDto
-from app.dao import Image, image_dao
-from app.util import login_required
+from app.dao import Image, image_dao, user_dao
+from app.util import login_required, generate_uuid
 
 
-class ImageApi(Resource):
+class ClubImageApi(Resource):
     # tested
     @login_required
     def post(self, identifier) -> 'json':
@@ -41,6 +41,28 @@ class ImageApi(Resource):
         image_dao.delete_image_by_id(identifier)
         dto = convert_from_model_to_image_dto(image)
         return util.obj2json(dto)
+
+
+class UserAvatar(Resource):
+    """对应/api/avatar/<string:user_id>
+
+    """
+    def post(self, user_id):
+        pass
+        # parser = reqparse.RequestParser()
+        # parser.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files', required=True,
+        #                     help="图片不能为空")
+        # args = parser.parse_args()
+        # file = args.get('file')
+        # user = user_dao.get_user_by_id(user_id)
+        # suffix = file.filename.split('.')[-1]
+        # image_id = util.generate_uuid()
+        # image_name = image_id + '.' + suffix
+        # file.save()
+        # image = image_dao.get_image_by_id(image.image_id)
+        # dto = convert_from_model_to_image_dto(image)
+        # return util.obj2json(dto)
+
 
 
 def convert_from_model_to_image_dto(image: Image):

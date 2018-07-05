@@ -70,7 +70,6 @@ def add_clubids_and_requestids_to_dto(user_result: User):
 
 
 class UsersApi(Resource):
-    @login_required
     def post(self):  # 测试通过
         """对应 /api/users -post
         :param req: 添加的用户数据
