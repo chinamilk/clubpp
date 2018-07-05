@@ -3,6 +3,7 @@
 """User
 """
 from flask_restful import Resource
+from app.util import login_required, admin_required
 from flask import request
 from app.dao.user_dao import *
 from app.dao.request_dao import get_requests
@@ -130,6 +131,21 @@ class UsersApi(Resource):
                 else:
                     res = {'message': 'user ' + query_dict['username'] + ' don\'t exist.'}
 
+    """
+
+    @admin_required
+    @login_required
+    def get(self, rate):
+        return {'hello': rate}
+
+    def put(self, rate):
+        return {'put': 'successful'}
+
+    def post(self, rate):
+        return {'post': 'successful'}
+
+    def delete(self, rate):
+        return {'delete': 'successful'}
             else:
                 res = {
                     'message': 'query_string don\'t have the "username" property.'

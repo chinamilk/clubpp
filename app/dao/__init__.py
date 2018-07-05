@@ -3,6 +3,11 @@
 
 """
 from app import db
+from app.dao import user_dao
+import jwt, datetime
+
+
+SECRET_KEY = 'secret'
 
 
 class User(db.Model):
@@ -54,6 +59,22 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+    def jwt_encoding(self):
+        """jwt编码"""
+        try:
+            option = {
+                'iat': datetime.datetime.utcnow(),
+                'iss': 'elites',
+                'data': {
+                    'user_id': self.user_id,
+                    'username': self.username,
+                    'is_admin': self.is_admin
+                }
+            }
+            return jwt.encode(option, SECRET_KEY, algorithm='HS256')
+        except Exception as e:
+            return e
 
 
 class Club(db.Model):
