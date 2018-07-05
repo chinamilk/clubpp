@@ -29,7 +29,7 @@ def create_app():
     """
     app = Flask(__name__)
     flask_cors.CORS(app, supports_credentials=True)
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://clubpp:123456sql@localhost:3306/clubpp?charset=utf8mb4'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost:3306/clubpp?charset=utf8mb4'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://clubpp:123456sql@localhost:3306/clubpp?charset=utf8mb4'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost:3306/clubpp?charset=utf8mb4'
     db.init_app(app)
     return app
