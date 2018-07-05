@@ -130,10 +130,9 @@ class UsersApiById(Resource):
         return obj2json(res)
 
 
-
 class UsersApi(Resource):
     def options(self):
-        res=make_response()
+        res = make_response()
         res.headers.add('Access-Control-Allow-Origin', '*')
         res.headers.add('Access-Control-Allow-Headers', 'content-type, x-auth-token')
         res.headers.add('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, HEAD')
