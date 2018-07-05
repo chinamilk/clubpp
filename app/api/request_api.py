@@ -1,5 +1,5 @@
 # -*-coding:utf-8-*-
-from app.util import BaseDto, generate_uuid
+from app.util import BaseDto, generate_uuid, login_required
 from flask_restful import Resource
 from flask import request
 import datetime
@@ -25,6 +25,7 @@ class RequestDto(BaseDto):
 
 
 class RequestApi(Resource):
+    @login_required
     def post(self):  # 测试通过
         req = request.json
         request_result = add_request(Request(
@@ -47,6 +48,7 @@ class RequestApi(Resource):
         res = request_dto
         return obj2json(res)
 
+    @login_required
     def get(self):  # 测试通过
         requests_result = get_requests()
         request_dtos = []
@@ -65,6 +67,7 @@ class RequestApi(Resource):
 
 
 class RequestApiById(Resource):
+    @login_required
     def delete(self, request_id):  # 测试通过
         requests_result = get_requests()
         exist_the_request = False
@@ -87,6 +90,7 @@ class RequestApiById(Resource):
             res = {'message': 'the request ' + request_id + ' not exist.'}
         return obj2json(res)
 
+    @login_required
     def get(self, request_id):  # 测试通过
         request_result = get_request_by_id(request_id)
         if request_result is None:

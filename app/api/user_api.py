@@ -1,4 +1,3 @@
-
 # -*-coding:utf-8-*-
 """User
 """
@@ -71,11 +70,12 @@ def add_clubids_and_requestids_to_dto(user_result: User):
 
 
 class UsersApi(Resource):
+    @login_required
     def post(self):  # 测试通过
-        '''对应 /api/users -post
+        """对应 /api/users -post
         :param req: 添加的用户数据
         :return: 添加后的用户数据包括id
-        '''
+        """
         req = request.json
         user_result = add_user(User(
             generate_uuid(),
@@ -131,33 +131,6 @@ class UsersApi(Resource):
                 else:
                     res = {'message': 'user ' + query_dict['username'] + ' don\'t exist.'}
 
-    """
-
-    @admin_required
-    @login_required
-    def get(self, rate):
-        return {'hello': rate}
-
-    def put(self, rate):
-        return {'put': 'successful'}
-
-    def post(self, rate):
-        return {'post': 'successful'}
-
-    def delete(self, rate):
-        return {'delete': 'successful'}
-            else:
-                res = {
-                    'message': 'query_string don\'t have the "username" property.'
-                }
-        else:
-            users_result = get_users()
-            res = []
-            for user_result in users_result:
-                user_dto = add_clubids_and_requestids_to_dto(user_result)
-                res.append(user_dto)
-        return obj2json(res)
-
 
 class UsersApiById(Resource):
     def put(self, user_id):  # 测试通过
@@ -189,12 +162,12 @@ class UsersApiById(Resource):
         return obj2json(res)
 
     def get(self, user_id):  # 测试通过
-        '''
+        """
         /api/users/:user_id -get
         根据id获取用户数据
         :param user_id: 用户id
         :return: 该id的用户数据
-        '''
+        """
         user = get_user_by_id(user_id)
         if user is None:
             res = {'message': 'user don\'t exist.'}

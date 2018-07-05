@@ -16,6 +16,8 @@ BASIC_URL = "http://" + SERVER_IP + ":80"
 DATETIME_PATTERN = '%Y-%m-%d %H:%M:%S'
 DATE_PATTERN = "%Y-%m-%d"
 
+SECRET_KEY = 'secret'
+
 pymysql.install_as_MySQLdb()
 db = SQLAlchemy()
 

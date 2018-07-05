@@ -6,10 +6,12 @@ from app import DESTINATION_DIR
 from app import util
 from app.api import ImageDto
 from app.dao import Image, image_dao
+from app.util import login_required
 
 
 class ImageApi(Resource):
     # tested
+    @login_required
     def post(self, identifier) -> 'json':
         """新增一张图片.
            对应URL为: /api/images/<string: identifier>
@@ -29,6 +31,7 @@ class ImageApi(Resource):
         return util.obj2json(dto)
 
     # tested
+    @login_required
     def delete(self, identifier) -> 'json':
         """删除一张图片.
            对应URL为: /api/images/<string: identifier>

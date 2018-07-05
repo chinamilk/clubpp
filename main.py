@@ -7,11 +7,9 @@ from app.api.image_api import ImageApi
 from app.api.request_api import RequestApi, RequestApiById
 from app.api.user_api import UsersApi, UsersApiById
 
-
 from app.dao import user_dao, User
 
 from flask import request, make_response, jsonify
-
 
 app = create_app()
 api = Api(app)
@@ -28,7 +26,8 @@ api.add_resource(UsersApiById, '/api/users/<string:user_id>', '/api/users/<strin
 api.add_resource(RequestApi, '/api/requests', '/api/requests/')
 api.add_resource(RequestApiById, '/api/requests/<string:request_id>', '/api/requests/<string:request_id>/')
 
-@app.route('/login',methods=['POST'])
+
+@app.route('/login', methods=['POST'])
 def my_login():
     request_data_dict = eval(str(request.data, encoding="utf8").replace('\n', '').replace('\t', ''))
     username = request_data_dict['username']
@@ -48,6 +47,7 @@ def my_login():
     token_json = {'token': token}
 
     return jsonify(token_json)
+
 
 if __name__ == '__main__':
     # app.run(debug=True)

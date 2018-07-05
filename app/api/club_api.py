@@ -15,10 +15,12 @@ from app.dao import club_dao
 from app.dao import image_dao
 from app.dao import request_dao
 from app import util, DATE_PATTERN
+from app.util import login_required
 
 
 class ClubsApi(Resource):
     # tested
+    @login_required
     def get(self) -> 'json':
         """对应 /api/clubs. 获取所有Club.
 
@@ -30,6 +32,7 @@ class ClubsApi(Resource):
         return util.obj2json(dtos)
 
     # tested
+    @login_required
     def post(self) -> 'json':
         """对应 /api/clubs. 新增一个Club.
 
@@ -43,6 +46,7 @@ class ClubsApi(Resource):
 
 class ClubApi(Resource):
     # tested
+    @login_required
     def get(self, club_id: str) -> 'json':
         """对应 /api/clubs/<string:club_id>. 获取特定的Club.
 
@@ -52,6 +56,7 @@ class ClubApi(Resource):
         return util.obj2json(dto)
 
     # tested
+    @login_required
     def put(self, club_id: str) -> 'json':
         """对应 /api/clubs/<string:club_id>. 修改特定的Club.
 
@@ -64,6 +69,7 @@ class ClubApi(Resource):
         return util.obj2json(dto)
 
     # tested
+    @login_required
     def delete(self, club_id: str) -> 'json':
         """对应 /api/clubs/<string:club_id>. 删除特定的Club.
 
