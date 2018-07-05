@@ -10,6 +10,7 @@ from app.api.user_api import UsersApi, UsersApiById
 from app.dao import user_dao, User
 
 from flask import request, make_response, jsonify
+from app.api import OptionApi
 
 app = create_app()
 api = Api(app)
@@ -26,6 +27,8 @@ api.add_resource(UsersApi, '/api/users', '/api/users/')
 api.add_resource(UsersApiById, '/api/users/<string:user_id>', '/api/users/<string:user_id>/')
 api.add_resource(RequestApi, '/api/requests', '/api/requests/')
 api.add_resource(RequestApiById, '/api/requests/<string:request_id>', '/api/requests/<string:request_id>/')
+api.add_resource(OptionApi, '/*', '/*/')
+
 
 
 @app.route('/login', methods=['POST'])

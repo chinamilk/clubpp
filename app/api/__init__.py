@@ -6,6 +6,7 @@
 from flask_restful import Resource
 from app import cors
 
+
 class OptionApi(Resource):
     def option(self):
         return cors
@@ -69,5 +70,6 @@ class ImageDto(BaseDto):
         "image_id": "uuid"
     }
     """
+
     def __init__(self):
         pass
