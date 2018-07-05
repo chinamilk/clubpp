@@ -27,7 +27,7 @@ api.add_resource(UsersApi, '/api/users', '/api/users/')
 api.add_resource(UsersApiById, '/api/users/<string:user_id>', '/api/users/<string:user_id>/')
 api.add_resource(RequestApi, '/api/requests', '/api/requests/')
 api.add_resource(RequestApiById, '/api/requests/<string:request_id>', '/api/requests/<string:request_id>/')
-api.add_resource(OptionApi, '/*', '/*/')
+# api.add_resource(OptionApi, '/', '')
 
 
 
