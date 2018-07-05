@@ -27,7 +27,6 @@ api.add_resource(UsersApi, '/api/users', '/api/users/')
 api.add_resource(UsersApiById, '/api/users/<string:user_id>', '/api/users/<string:user_id>/')
 api.add_resource(RequestApi, '/api/requests', '/api/requests/')
 api.add_resource(RequestApiById, '/api/requests/<string:request_id>', '/api/requests/<string:request_id>/')
-# api.add_resource(OptionApi, '/', '')
 
 
 
@@ -54,5 +53,5 @@ def my_login():
 
 
 if __name__ == '__main__':
-    # app.run(debug=True, port='5005')
-    app.run(host='0.0.0.0', port='5005')
+    app.run(debug=True, port='5005')
+    # app.run(host='0.0.0.0', port='5005')

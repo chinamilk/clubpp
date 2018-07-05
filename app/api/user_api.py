@@ -81,81 +81,6 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, HEAD')
     return response
 
-@app.after_request
-class UsersApi(Resource):
-    def option(self):
-        return cors
-
-    def post(self):  # 测试通过
-        """对应 /api/users -post
-        :param req: 添加的用户数据
-        :return: 添加后的用户数据包括id
-        """
-        req = request.json
-        user_result = add_user(User(
-            generate_uuid(),
-            req.get('username'),
-            req.get('name'),
-            req.get('password'),
-            req.get('email'),
-            req.get('day_of_birth'),
-            req.get('gender'),
-            req.get('academy'),
-            req.get('major'),
-            req.get('bio'),
-            req.get('phone'),
-            req.get('year_of_enrollment')
-        ))
-        user_dto = UsersDto(
-            user_id=user_result.user_id,
-            username=user_result.username,
-            name=user_result.name,
-            email=user_result.email,
-            day_of_birth=user_result.day_of_birth,
-            gender=user_result.gender,
-            academy=user_result.academy,
-            major=user_result.major,
-            bio=user_result.bio,
-            phone=user_result.phone,
-            year_of_enrollment=user_result.year_of_enrollment,
-            club_ids=[],
-            request_ids=[]
-        )
-        res = user_dto
-        # res = flask.make_response(res)
-        # res.headers['Access-Control-Allow-Origin'] = "*"
-        # res.headers['Access-Control-Allow-Headers'] = "content-type, x-auth-token"
-        # res.headers['Access-Control-Allow-Methods'] = "GET, PUT, POST, DELETE, OPTIONS, HEAD"
-
-        # return obj2json(res)
-        # return res
-        res=make_response(res)
-        res.headers.add('Access-Control-Allow-Origin', '*')
-        res.headers.add('Access-Control-Allow-Headers', 'content-type, x-auth-token')
-        res.headers.add('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, HEAD')
-        return res
-
-    def get(self):  # 测试通过
-        '''
-        根据是否有包含username的query_string判断返回一个用户or所有用户
-        :return: 一个username相关用户or所有用户
-        '''
-        if request.query_string:
-            query_str = str(request.query_string, encoding='utf-8')
-            query_key_value = query_str.split('&')
-            query_dict = {}
-            for key_value in query_key_value:
-                key, value = key_value.split('=')
-                query_dict[key] = value
-
-            if 'username' in query_dict.keys():
-                user_result = get_user_by_username(query_dict['username'])
-                if user_result is not None:
-                    user_dto = add_clubids_and_requestids_to_dto(user_result)
-                    res = user_dto
-                else:
-                    res = {'message': 'user ' + query_dict['username'] + ' don\'t exist.'}
-
 
 class UsersApiById(Resource):
     @login_required
@@ -203,3 +128,78 @@ class UsersApiById(Resource):
             user_dto = add_clubids_and_requestids_to_dto(user_result)
             res = user_dto
         return obj2json(res)
+
+
+
+class UsersApi(Resource):
+    def options(self):
+        res=make_response()
+        res.headers.add('Access-Control-Allow-Origin', '*')
+        res.headers.add('Access-Control-Allow-Headers', 'content-type, x-auth-token')
+        res.headers.add('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, HEAD')
+        return res
+
+    def post(self):  # 测试通过
+        """对应 /api/users -post
+        :param req: 添加的用户数据
+        :return: 添加后的用户数据包括id
+        """
+        req = request.json
+        user_result = add_user(User(
+            generate_uuid(),
+            req.get('username'),
+            req.get('name'),
+            req.get('password'),
+            req.get('email'),
+            req.get('day_of_birth'),
+            req.get('gender'),
+            req.get('academy'),
+            req.get('major'),
+            req.get('bio'),
+            req.get('phone'),
+            req.get('year_of_enrollment')
+        ))
+        user_dto = UsersDto(
+            user_id=user_result.user_id,
+            username=user_result.username,
+            name=user_result.name,
+            email=user_result.email,
+            day_of_birth=user_result.day_of_birth,
+            gender=user_result.gender,
+            academy=user_result.academy,
+            major=user_result.major,
+            bio=user_result.bio,
+            phone=user_result.phone,
+            year_of_enrollment=user_result.year_of_enrollment,
+            club_ids=[],
+            request_ids=[]
+        )
+        res = user_dto
+        # res = flask.make_response(res)
+        # res.headers['Access-Control-Allow-Origin'] = "*"
+        # res.headers['Access-Control-Allow-Headers'] = "content-type, x-auth-token"
+        # res.headers['Access-Control-Allow-Methods'] = "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+
+        return obj2json(res)
+        # return res
+
+    def get(self):  # 测试通过
+        '''
+        根据是否有包含username的query_string判断返回一个用户or所有用户
+        :return: 一个username相关用户or所有用户
+        '''
+        if request.query_string:
+            query_str = str(request.query_string, encoding='utf-8')
+            query_key_value = query_str.split('&')
+            query_dict = {}
+            for key_value in query_key_value:
+                key, value = key_value.split('=')
+                query_dict[key] = value
+
+            if 'username' in query_dict.keys():
+                user_result = get_user_by_username(query_dict['username'])
+                if user_result is not None:
+                    user_dto = add_clubids_and_requestids_to_dto(user_result)
+                    res = user_dto
+                else:
+                    res = {'message': 'user ' + query_dict['username'] + ' don\'t exist.'}
