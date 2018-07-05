@@ -110,7 +110,7 @@ class UsersApi(Resource):
         )
         res = user_dto
 
-        return obj2json(res), 200, cors
+        return obj2json(res)
 
     def get(self):  # 测试通过
         '''
