@@ -47,6 +47,7 @@ class UserAvatar(Resource):
     """对应/api/avatar/<string:user_id>
 
     """
+
     def post(self, user_id):
         pass
         # parser = reqparse.RequestParser()
@@ -62,7 +63,6 @@ class UserAvatar(Resource):
         # image = image_dao.get_image_by_id(image.image_id)
         # dto = convert_from_model_to_image_dto(image)
         # return util.obj2json(dto)
-
 
 
 def convert_from_model_to_image_dto(image: Image):

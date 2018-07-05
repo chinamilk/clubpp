@@ -1,8 +1,12 @@
 # -*-coding:utf-8-*-
 import mysql.connector
 
+from app import db, util
+from app.dao import User
+
+
 class ContextManagement:
-    def __init__(self, config:dict) -> None:
+    def __init__(self, config: dict) -> None:
         self.configuration = config
 
     def __enter__(self) -> 'cursor':
@@ -17,10 +21,9 @@ class ContextManagement:
 
 
 databaseConfig = {'host': 'localhost',
-                          'user': 'root',
-                          'passwd': '',
-                          'db': 'clubpp'}
-
+                  'user': 'root',
+                  'passwd': '',
+                  'db': 'clubpp'}
 
 
 def if_username_exist(username):
@@ -29,7 +32,8 @@ def if_username_exist(username):
         data = cursor.fetchall()
         return data
 
-def get_user_id_by_username(username:str):
+
+def get_user_id_by_username(username: str):
     """
 
     :return:
@@ -37,7 +41,7 @@ def get_user_id_by_username(username:str):
     return 'gfn'
 
 
-def get_is_admin_by_username(username:str):
+def get_is_admin_by_username(username: str):
     """
 
     :param username:
@@ -49,7 +53,7 @@ def get_is_admin_by_username(username:str):
         return data
 
 
-def get_password_by_username(username:str):
+def get_password_by_username(username: str):
     """
 
     :param username:
@@ -59,10 +63,6 @@ def get_password_by_username(username:str):
         cursor.execute("select password from user where username = '%s'" % username)
         data = cursor.fetchall()
         return data
-
-from app import db
-from app.dao import User
-from app import util
 
 
 def add_user(user: User):  # 测试通过

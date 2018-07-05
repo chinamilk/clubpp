@@ -2,10 +2,11 @@
 """dao包包含对数据库的操作，可以将对数据库的操作写成CRUD的API给api包中的函数调用
 
 """
+import datetime
+import jwt
+
 from app import db
 from app.dao import user_dao
-import jwt, datetime
-
 
 SECRET_KEY = 'secret'
 

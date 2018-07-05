@@ -70,6 +70,7 @@ def add_clubids_and_requestids_to_dto(user_result: User):
 
 
 class UsersApi(Resource):
+    @login_required
     def post(self):  # 测试通过
         """对应 /api/users -post
         :param req: 添加的用户数据
@@ -132,6 +133,7 @@ class UsersApi(Resource):
 
 
 class UsersApiById(Resource):
+    @login_required
     def put(self, user_id):  # 测试通过
         """
         对应 /api/users/:user_id -put
@@ -160,6 +162,7 @@ class UsersApiById(Resource):
             res = {'message': 'It\'s not exist that user you want update.'}
         return obj2json(res)
 
+    @login_required
     def get(self, user_id):  # 测试通过
         """
         /api/users/:user_id -get
