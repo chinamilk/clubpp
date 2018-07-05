@@ -21,7 +21,7 @@ SECRET_KEY = 'secret'
 pymysql.install_as_MySQLdb()
 db = SQLAlchemy()
 
-cors={
+cors = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "content-type, x-auth-token",
     "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS, HEAD",
@@ -34,7 +34,10 @@ def create_app():
     :return: instance app
     """
     app = Flask(__name__)
-    flask_cors.CORS(app, resources={r"/*": {"origins": "*"}})
+    flask_cors.CORS(app, resources={r"/*": {"origins": "*",
+                                            "methods": ["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
+                                            "allow_headers": "*"
+                                            }})
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://clubpp:123456sql@localhost:3306/clubpp?charset=utf8mb4'
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost:3306/clubpp?charset=utf8mb4'
     db.init_app(app)
