@@ -34,7 +34,7 @@ def create_app():
     :return: instance app
     """
     app = Flask(__name__)
-    flask_cors.CORS(app, resources={r"/*": {"origins": "*",
+    flask_cors.CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*",
                                             "methods": ["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
                                             "allow_headers": "*"
                                             }})
